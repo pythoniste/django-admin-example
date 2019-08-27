@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "topology.apps.TopologyConfig",
+    'django_extensions',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,3 +121,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_PATH = BASE_DIR + '/static/'
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}

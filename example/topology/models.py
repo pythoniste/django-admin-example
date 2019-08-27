@@ -30,7 +30,7 @@ from django.db.models import (
     ForeignKey,
     ManyToManyField,
     CASCADE,
-)
+    PROTECT)
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
@@ -163,24 +163,24 @@ class Test(Model):
 
     category = ForeignKey(
         verbose_name=_("category"),
-        related_name="tag_set",
+        related_name="test_set",
         to=Category,
         null=True,
         blank=True,
         db_index=True,
-        on_delete=CASCADE,
+        on_delete=PROTECT,
     )
 
-    themes = ManyToManyField(
-        verbose_name=_("themes"),
-        related_name="tag_set",
+    theme_set = ManyToManyField(
+        verbose_name=_("theme_set"),
+        related_name="test_set",
         to=Theme,
         blank=True,
     )
 
     category2 = ForeignKey(
         verbose_name=_("category 2"),
-        related_name="tag2_set",
+        related_name="test2_set",
         to=Category,
         null=True,
         blank=True,
@@ -188,16 +188,16 @@ class Test(Model):
         on_delete=CASCADE,
     )
 
-    themes2 = ManyToManyField(
-        verbose_name=_("themes 2"),
-        related_name="tag2_set",
+    theme_set2 = ManyToManyField(
+        verbose_name=_("theme_set 2"),
+        related_name="test2_set",
         to=Theme,
         blank=True,
     )
 
     category3 = ForeignKey(
         verbose_name=_("category 3"),
-        related_name="tag3_set",
+        related_name="test3_set",
         to=Category,
         null=True,
         blank=True,
@@ -205,16 +205,16 @@ class Test(Model):
         on_delete=CASCADE,
     )
 
-    themes3 = ManyToManyField(
-        verbose_name=_("themes 3"),
-        related_name="tag3_set",
+    theme_set3 = ManyToManyField(
+        verbose_name=_("theme_set 3"),
+        related_name="test3_set",
         to=Theme,
         blank=True,
     )
 
     category4 = ForeignKey(
         verbose_name=_("category 4"),
-        related_name="tag4_set",
+        related_name="test4_set",
         to=Category,
         null=True,
         blank=True,
@@ -222,16 +222,16 @@ class Test(Model):
         on_delete=CASCADE,
     )
 
-    themes4 = ManyToManyField(
-        verbose_name=_("themes 4"),
-        related_name="tag4_set",
+    theme_set4 = ManyToManyField(
+        verbose_name=_("theme_set 4"),
+        related_name="test4_set",
         to=Theme,
         blank=True,
     )
 
     category5 = ForeignKey(
         verbose_name=_("category 5"),
-        related_name="tag5_set",
+        related_name="test5_set",
         to=Category,
         null=True,
         blank=True,
@@ -239,16 +239,16 @@ class Test(Model):
         on_delete=CASCADE,
     )
 
-    themes5 = ManyToManyField(
-        verbose_name=_("themes 5"),
-        related_name="tag5_set",
+    theme_set5 = ManyToManyField(
+        verbose_name=_("theme_set 5"),
+        related_name="test5_set",
         to=Theme,
         blank=True,
     )
 
     category6 = ForeignKey(
         verbose_name=_("category 6"),
-        related_name="tag6_set",
+        related_name="test6_set",
         to=Category,
         null=True,
         blank=True,
@@ -256,16 +256,16 @@ class Test(Model):
         on_delete=CASCADE,
     )
 
-    themes6 = ManyToManyField(
-        verbose_name=_("themes 6"),
-        related_name="tag6_set",
+    theme_set6 = ManyToManyField(
+        verbose_name=_("theme_set 6"),
+        related_name="test6_set",
         to=Theme,
         blank=True,
     )
 
-    tag = ManyToManyField(
-        verbose_name=_("themes"),
-        related_name="tag_set",
+    tag_set = ManyToManyField(
+        verbose_name=_("theme_set"),
+        related_name="test_set",
         to=Tag,
         through="Mapping",
         blank=True,

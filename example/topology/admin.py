@@ -55,12 +55,12 @@ class TestAdmin(ModelAdmin):
         }),
         (_("Relations"), {
             "fields": (
-                ("category", "themes"),
-                ("category2", "themes2"),
-                ("category3", "themes3"),
-                ("category4", "themes4"),
+                ("category", "theme_set"),
+                ("category2", "theme_set2"),
+                ("category3", "theme_set3"),
+                ("category4", "theme_set4"),
                 ("category5", "category6"),
-                ("themes5", "themes6"),
+                ("theme_set5", "theme_set6"),
             )
         }),
         (_("Numbers"), {
@@ -93,20 +93,20 @@ class TestAdmin(ModelAdmin):
     prepopulated_fields = {
         "slug": ("label",),
     }
-    autocomplete_fields = ("category2", "themes2")
+    autocomplete_fields = ("category2", "theme_set2")
     radio_fields = {
         "category3": HORIZONTAL,
     }
-    filter_horizontal = ("themes5",)
-    filter_vertical = ("themes6",)
+    filter_horizontal = ("theme_set5",)
+    filter_vertical = ("theme_set6",)
     inlines = [MappingInline]
     formfield_overrides = {
         NullBooleanField: {"widget": NullBooleanRadioSelect},
     }
-    raw_id_fields = ("category4", "themes4")
+    raw_id_fields = ("category4", "theme_set4")
 
     def formfield_for_manytomany(self, db_field, request, **kwargs):
-        if db_field.name == "themes3":
+        if db_field.name == "theme_set3":
             kwargs.update({"widget": CheckboxSelectMultiple()})
         return super().formfield_for_manytomany(db_field, request, **kwargs)
 
