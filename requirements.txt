@@ -2,3 +2,5 @@ bpython
 django
 pillow
 lorem
+django-extensions
+pygraphviz
