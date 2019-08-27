@@ -37,7 +37,7 @@ class CategoryAdmin(ModelAdmin):
 class MappingInline(TabularInline):
     model = Mapping
     autocomplete_fields = ("tag",)
-    min_num = 1
+    min_num = 0
     max_num = 3
     extra = 1
 

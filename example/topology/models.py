@@ -281,16 +281,22 @@ class Test(Model):
         max_digits=5,
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(100)],
+        blank=True,
+        null=True,
     )
 
     progress = FloatField(
         verbose_name=_("progress"),
         validators=[MinValueValidator(0), MaxValueValidator(100)],
+        blank=True,
+        null=True,
     )
 
     grade = IntegerField(
         verbose_name=_("grade"),
         validators=[MinValueValidator(-10), MaxValueValidator(10)],
+        blank=True,
+        null=True,
     )
 
     slug = SlugField(
@@ -340,6 +346,8 @@ class Test(Model):
 
     random_date = DateField(
         verbose_name=_("random date"),
+        blank=True,
+        null=True,
     )
 
     creation_datetime = DateTimeField(
@@ -354,10 +362,14 @@ class Test(Model):
 
     random_datetime = DateTimeField(
         verbose_name=_("random datetime"),
+        blank=True,
+        null=True,
     )
 
     duration = DurationField(
         verbose_name=_("duration"),
+        blank=True,
+        null=True,
     )
 
     creation_time = TimeField(
@@ -372,27 +384,37 @@ class Test(Model):
 
     random_time = TimeField(
         verbose_name=_("random time"),
+        blank=True,
+        null=True,
     )
 
     ip = GenericIPAddressField(
         verbose_name=_("IP v4 ou 6"),
         protocol="both",
+        blank=True,
+        null=True,
     )
 
     ipv4 = GenericIPAddressField(
         verbose_name=_("IP v4 as is"),
         protocol="IPv4",
+        blank=True,
+        null=True,
     )
 
     ipv6_forced = GenericIPAddressField(
         verbose_name=_("IP v6 (ipv4 will be converted)"),
         protocol="both",
         unpack_ipv4=True,
+        blank=True,
+        null=True,
     )
 
     ipv6 = GenericIPAddressField(
         verbose_name=_("IP v6"),
         protocol="IPv6",
+        blank=True,
+        null=True,
     )
 
     raw_data = BinaryField(
@@ -400,6 +422,7 @@ class Test(Model):
         max_length=127,
         editable=True,
         blank=True,
+        null=True,
     )
 
     def compute_upload_path(current_object, sub_path, filename):
