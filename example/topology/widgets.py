@@ -11,6 +11,6 @@ class NullBooleanRadioSelect(RadioSelect):
             (True, ugettext_lazy('Yes')),
             (False, ugettext_lazy('No'))
         )
-        super(NullBooleanRadioSelect, self).__init__(choices=choices, *args, **kwargs)
+        super().__init__(choices=choices, *args, **kwargs)
 
     _empty_value = None

@@ -2,9 +2,11 @@ from uuid import uuid4
 
 from django.contrib.admin import ModelAdmin, TabularInline, register, HORIZONTAL, RelatedOnlyFieldListFilter
 from django.db.models import NullBooleanField
+from django.forms import CheckboxSelectMultiple, ChoiceField, ModelChoiceField
 from django.utils.lorem_ipsum import sentence
 from django.utils.translation import ugettext_lazy as _
 
+from topology.fields import CategoryChoiceField
 from topology.filters import CreationMonthListFilter, ModificationMonthListFilter, RandomMonthListFilter
 from topology.forms import TestForm
 from topology.models import (
@@ -35,7 +37,8 @@ class CategoryAdmin(ModelAdmin):
 class MappingInline(TabularInline):
     model = Mapping
     autocomplete_fields = ("tag",)
-    min_num = 0
+    min_num = 1
+    max_num = 3
     extra = 1
 
 
@@ -101,6 +104,28 @@ class TestAdmin(ModelAdmin):
         NullBooleanField: {"widget": NullBooleanRadioSelect},
     }
     raw_id_fields = ("category4", "themes4")
+
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "themes3":
+            kwargs.update({"widget": CheckboxSelectMultiple()})
+        return super().formfield_for_manytomany(db_field, request, **kwargs)
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "category5":
+            return CategoryChoiceField(
+                required=False,
+                # empty_label="---------",
+                queryset=Category.objects.all()
+            )
+        elif db_field.name == "category6":
+            field = ModelChoiceField(required=False, queryset=Category.objects.filter(parent__parent__isnull=True))
+            field.choices = list(e for e in field.choices if not e[0]) + list(
+                (group.label, list((option.id, option.label) for option in Category.objects.filter(parent=group)))
+                for group in Category.objects.filter(parent__isnull=True)
+            )
+            return field
+        return super().formfield_for_foreignkey(db_field, request, **kwargs)
+
     search_fields = ("label", "description")
     list_filter = (
         "category",
@@ -120,7 +145,7 @@ class TestAdmin(ModelAdmin):
 
     def go(self, obj):
         return obj.label
-    lorem.short_description = _("lorem ipsum sentence")
+    go.short_description = _("lien vers la fiche")
 
     def action_message(self, request, rows_updated):
         if rows_updated == 0:
